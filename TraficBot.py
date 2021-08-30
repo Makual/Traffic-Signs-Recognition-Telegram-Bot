@@ -1,11 +1,4 @@
-token = '1934938637:AAHoq6OVG3lV44HzK5HYA1mU-7_UqoiUrN8'
-
-
-import telebot
-from PIL import Image
-import numpy as np
-from keras.models import load_model
-
+token = '***'
 
 dct_1 = {'0': '1_1',
  '1': '1_11_1',
@@ -189,7 +182,6 @@ dct_1 = {'0': '1_1',
  '97': '4_5_1',
  '98': '4_5_2',
  '99': '4_5_4'}
-
 
 dct_2 = {'1_1': 'Железнодорожный переезд со шлагбаумом',
  '1_10': 'Выезд на набережную',
@@ -442,9 +434,12 @@ dct_2 = {'1_1': 'Железнодорожный переезд со шлагба
  '8_9_2': 'Стоянка только транспортных средств дипломатического корпуса'}
 
 
+import telebot
+from PIL import Image
+import numpy as np
+from keras.models import load_model
 
 bot = telebot.TeleBot(token)
-
 
 @bot.message_handler(content_types=["text"])
 def start(message): # Название функции не играет никакой роли
@@ -469,7 +464,6 @@ def handle_docs_photo(message):
     model = load_model('TraficSignRecognition.h5')
 
     res = np.argmax(model(img))
-    
     res = dct_1[str(res)]
 
     try:
@@ -478,9 +472,6 @@ def handle_docs_photo(message):
     except:
         bot.send_message(message.chat.id, 'Предположительно это знак - ' + res)
 
-    
-    
-    
-
+      
 if __name__ == '__main__':
      bot.infinity_polling()
